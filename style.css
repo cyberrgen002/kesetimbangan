@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #eef6f9;
+}
+
+header {
+    background: #1e88e5;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+nav {
+    background: #1565c0;
+    text-align: center;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 400px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    background: #1e88e5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.jungkat-container {
+    margin-top: 30px;
+    position: relative;
+    height: 120px;
+}
+
+#papan {
+    width: 300px;
+    height: 10px;
+    background: #444;
+    margin: auto;
+    transition: transform 0.5s;
+}
+
+.titik-tumpu {
+    width: 20px;
+    height: 30px;
+    background: #777;
+    margin: auto;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #ddd;
+}
