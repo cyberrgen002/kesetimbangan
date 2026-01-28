@@ -1,11 +1,11 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
+    font-family: Arial, sans-serif;
     background: #eef6f9;
 }
 
 header {
-    background: #1e88e5;
+    background: #1976d2;
     color: white;
     text-align: center;
     padding: 20px;
@@ -31,53 +31,69 @@ nav a {
     border-radius: 8px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
-}
-
-.input-group {
+.input-area {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 12px;
     max-width: 400px;
+}
+
+input {
+    width: 100%;
+    padding: 6px;
 }
 
 button {
     margin-top: 15px;
     padding: 10px;
-    background: #1e88e5;
+    background: #1976d2;
     color: white;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .jungkat-container {
-    margin-top: 30px;
+    margin-top: 40px;
+    height: 160px;
     position: relative;
-    height: 120px;
 }
 
 #papan {
-    width: 300px;
-    height: 10px;
-    background: #444;
+    width: 340px;
+    height: 8px;
+    background: #333;
     margin: auto;
-    transition: transform 0.5s;
+    position: relative;
+    transform-origin: center center;
+    transition: transform 0.6s ease;
+}
+
+.beban {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: -26px;
+    border-radius: 4px;
+}
+
+.kiri {
+    left: 20px;
+    background: #e53935;
+}
+
+.kanan {
+    right: 20px;
+    background: #43a047;
 }
 
 .titik-tumpu {
     width: 20px;
-    height: 30px;
+    height: 36px;
     background: #777;
     margin: auto;
+    margin-top: -4px;
+    border-radius: 3px;
 }
 
 footer {
