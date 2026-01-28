@@ -30,9 +30,9 @@ function updateSimulasi() {
     if (Math.abs(deltaTau) < 0.5) {
         status = "✅ Sistem setimbang (Στ = 0)";
     } else if (deltaTau > 0) {
-        status = "⬅️ Beban kiri lebih berat";
+        status = "⬅️ Beban kanan lebih berat";
     } else {
-        status = "➡️ Beban kanan lebih berat";
+        status = "➡️ Beban kiri lebih berat";
     }
 
     document.getElementById("hasil").innerHTML = `
