@@ -2,67 +2,49 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Simulasi Kesetimbangan Benda Tegar</title>
+    <title>Simulasi Kesetimbangan Kendaraan</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <h1>Kesetimbangan Benda Tegar</h1>
-    <p>Simulasi Jungkat-Jungkit Interaktif</p>
+    <h1>Simulasi Kesetimbangan & Gerak Kendaraan</h1>
+    <p>Implementasi Hukum II Newton (ΣF = m·a)</p>
 </header>
 
-<nav>
-    <a href="#materi">Materi</a>
-    <a href="#simulasi">Simulasi</a>
-</nav>
-
-<section id="materi" class="card">
-    <h2>Konsep Dasar</h2>
-    <p>Benda dikatakan setimbang jika:</p>
-    <ul>
-        <li>ΣF = 0 (Kesetimbangan Translasi)</li>
-        <li>Στ = 0 (Kesetimbangan Rotasi)</li>
-    </ul>
-</section>
-
-<section id="simulasi" class="card">
-    <h2>Simulasi Jungkat-Jungkit</h2>
+<section class="card">
+    <h2>Parameter Fisika</h2>
 
     <div class="input-area">
         <div>
-            <label>Massa Kanan (kg)</label>
-            <input type="number" id="m1" value="10">
+            <label>Gaya Mesin (N)</label>
+            <input type="number" id="gayaMesin" value="300">
         </div>
         <div>
-            <label>Jarak Kanan (m)</label>
-            <input type="number" id="d1" value="2">
+            <label>Gaya Udara (N)</label>
+            <input type="number" id="gayaUdara" value="100">
         </div>
         <div>
-            <label>Massa Kiri (kg)</label>
-            <input type="number" id="m2" value="6">
-        </div>
-        <div>
-            <label>Jarak Kiri (m)</label>
-            <input type="number" id="d2" value="2">
+            <label>Koefisien Gesek</label>
+            <input type="number" step="0.01" id="koefGesek" value="0.02">
         </div>
     </div>
 
-    <button onclick="updateSimulasi()">Simulasikan</button>
+    <button onclick="resetSimulasi()">Terapkan & Jalankan</button>
+</section>
 
-    <p id="hasil"></p>
+<section class="card">
+    <h2>Simulasi Visual</h2>
 
-    <div class="jungkat-container">
-        <div id="papan">
-            <div class="beban kiri"></div>
-            <div class="beban kanan"></div>
-        </div>
-        <div class="titik-tumpu"></div>
+    <div class="lintasan">
+        <div id="mobil"></div>
     </div>
+
+    <p id="info"></p>
 </section>
 
 <footer>
-    <p>© Simulasi Fisika</p>
+    <p>© Simulasi Fisika Interaktif</p>
 </footer>
 
 <script src="script.js"></script>
