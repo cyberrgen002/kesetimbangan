@@ -1,43 +1,74 @@
-function updateSimulasi() {
-    const m1 = parseFloat(document.getElementById("m1").value);
-    const d1 = parseFloat(document.getElementById("d1").value);
-    const m2 = parseFloat(document.getElementById("m2").value);
-    const d2 = parseFloat(document.getElementById("d2").value);
+// -----------------------------
+// PARAMETER KONSTAN
+// -----------------------------
+const massa = 1000; // kg
+const g = 9.8;
 
-    if ([m1, d1, m2, d2].some(v => v <= 0)) {
-        alert("Semua nilai harus lebih dari 0");
-        return;
-    }
+// -----------------------------
+// VARIABEL GERAK
+// -----------------------------
+let posisi = 0;
+let kecepatan = 0;
+const dt = 0.016; // ~60 FPS
+const batasLintasan = 6; // meter
 
-    // Hitung torsi
-    const tauKiri = m1 * d1;
-    const tauKanan = m2 * d2;
+const mobil = document.getElementById("mobil");
+const info = document.getElementById("info");
 
-    const deltaTau = tauKiri - tauKanan;
+let resultanGaya = 0;
 
-    // Konversi torsi → sudut (dinamis)
-    const sensitivity = 2; // sensitivitas visual
-    let angle = deltaTau * sensitivity;
+// -----------------------------
+// RESET & HITUNG ULANG
+// -----------------------------
+function resetSimulasi() {
+    posisi = 0;
+    kecepatan = 0;
 
-    // Batasi sudut rotasi
-    angle = Math.max(Math.min(angle, 25), -25);
+    const gayaMesin = parseFloat(document.getElementById("gayaMesin").value);
+    const gayaUdara = parseFloat(document.getElementById("gayaUdara").value);
+    const koefGesek = parseFloat(document.getElementById("koefGesek").value);
 
-    document.getElementById("papan").style.transform =
-        `rotate(${angle}deg)`;
+    const gayaNormal = massa * g;
+    const gayaGesek = koefGesek * gayaNormal;
 
-    // Output teks
-    let status;
-    if (Math.abs(deltaTau) < 0.5) {
-        status = "✅ Sistem setimbang (Στ = 0)";
-    } else if (deltaTau > 0) {
-        status = "⬅️ Beban kanan lebih berat";
-    } else {
-        status = "➡️ Beban kiri lebih berat";
-    }
-
-    document.getElementById("hasil").innerHTML = `
-        Torsi Kiri = ${tauKiri.toFixed(2)} Nm<br>
-        Torsi Kanan = ${tauKanan.toFixed(2)} Nm<br>
-        <b>${status}</b>
-    `;
+    resultanGaya = gayaMesin - (gayaGesek + gayaUdara);
 }
+
+// -----------------------------
+// LOOP ANIMASI
+// -----------------------------
+function animate() {
+    // Hukum II Newton
+    const percepatan = resultanGaya / massa;
+
+    // Update kecepatan & posisi
+    kecepatan += percepatan * dt;
+    posisi += kecepatan * dt;
+
+    // Batas lintasan
+    posisi = Math.max(0, Math.min(posisi, batasLintasan));
+
+    // Meter → pixel
+    const px = posisi * 100;
+    mobil.style.transform = `translateX(${px}px)`;
+
+    // Status sistem
+    let status = "SETIMBANG";
+    if (Math.abs(resultanGaya) > 1) {
+        status = resultanGaya > 0 ? "MAJU" : "MUNDUR";
+    }
+
+    info.innerHTML = `
+        <b>Status:</b> ${status}<br>
+        <b>Resultan Gaya:</b> ${resultanGaya.toFixed(1)} N<br>
+        <b>Percepatan:</b> ${percepatan.toFixed(3)} m/s²<br>
+        <b>Kecepatan:</b> ${kecepatan.toFixed(2)} m/s<br>
+        <b>Posisi:</b> ${posisi.toFixed(2)} m
+    `;
+
+    requestAnimationFrame(animate);
+}
+
+// Inisialisasi awal
+resetSimulasi();
+animate();
