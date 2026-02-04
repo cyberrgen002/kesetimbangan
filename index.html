@@ -2,50 +2,46 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Simulasi Kesetimbangan Kendaraan</title>
+    <title>Simulasi Kesetimbangan Gaya</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-    <h1>Simulasi Kesetimbangan & Gerak Kendaraan</h1>
-    <p>Implementasi Hukum II Newton (ΣF = m·a)</p>
-</header>
+<h1>Simulasi Kesetimbangan & Grafik Gerak</h1>
 
 <section class="card">
-    <h2>Parameter Fisika</h2>
+    <h2>Input Parameter (User)</h2>
 
-    <div class="input-area">
-        <div>
-            <label>Gaya Mesin (N)</label>
-            <input type="number" id="gayaMesin" value="300">
-        </div>
-        <div>
-            <label>Gaya Udara (N)</label>
-            <input type="number" id="gayaUdara" value="100">
-        </div>
-        <div>
-            <label>Koefisien Gesek</label>
-            <input type="number" step="0.01" id="koefGesek" value="0.02">
-        </div>
-    </div>
+    <label>Massa (kg)</label>
+    <input type="number" id="massa" value="1000">
 
-    <button onclick="resetSimulasi()">Terapkan & Jalankan</button>
+    <label>Koefisien Gesek</label>
+    <input type="number" step="0.01" id="gesek" value="0.02">
+
+    <label>Gaya Mesin (N)</label>
+    <input type="number" id="gayaMesin" value="300">
+
+    <label>Gaya Udara (N)</label>
+    <input type="number" id="gayaUdara" value="100">
+
+    <button onclick="resetSimulasi()">Jalankan Simulasi</button>
 </section>
 
 <section class="card">
-    <h2>Simulasi Visual</h2>
+    <h2>Indikator Kesetimbangan (Jungkat-Jungkit)</h2>
 
-    <div class="lintasan">
-        <div id="mobil"></div>
+    <div class="jungkat-container">
+        <div id="papan"></div>
+        <div class="titik-tumpu"></div>
     </div>
 
     <p id="info"></p>
 </section>
 
-<footer>
-    <p>© Simulasi Fisika Interaktif</p>
-</footer>
+<section class="card">
+    <h2>Grafik Gerak (Setara Matplotlib)</h2>
+    <canvas id="grafik" width="700" height="200"></canvas>
+</section>
 
 <script src="script.js"></script>
 </body>
