@@ -1,74 +1,73 @@
-// -----------------------------
-// PARAMETER KONSTAN
-// -----------------------------
-const massa = 1000; // kg
-const g = 9.8;
+// Variabel fisika
+let massa, koefGesek, gayaMesin, gayaUdara;
+let gayaGesek, resultanGaya;
 
-// -----------------------------
-// VARIABEL GERAK
-// -----------------------------
+// Variabel gerak (SAMA DENGAN PYTHON)
 let posisi = 0;
 let kecepatan = 0;
-const dt = 0.016; // ~60 FPS
-const batasLintasan = 6; // meter
+const g = 9.8;
+const dt = 0.1;
 
-const mobil = document.getElementById("mobil");
-const info = document.getElementById("info");
+// Canvas
+const canvas = document.getElementById("grafik");
+const ctx = canvas.getContext("2d");
 
-let resultanGaya = 0;
+let frame = 0;
 
-// -----------------------------
-// RESET & HITUNG ULANG
-// -----------------------------
+// Reset & ambil input user
 function resetSimulasi() {
+    massa = parseFloat(document.getElementById("massa").value);
+    koefGesek = parseFloat(document.getElementById("gesek").value);
+    gayaMesin = parseFloat(document.getElementById("gayaMesin").value);
+    gayaUdara = parseFloat(document.getElementById("gayaUdara").value);
+
+    gayaGesek = koefGesek * massa * g;
+    resultanGaya = gayaMesin - (gayaGesek + gayaUdara);
+
     posisi = 0;
     kecepatan = 0;
+    frame = 0;
 
-    const gayaMesin = parseFloat(document.getElementById("gayaMesin").value);
-    const gayaUdara = parseFloat(document.getElementById("gayaUdara").value);
-    const koefGesek = parseFloat(document.getElementById("koefGesek").value);
-
-    const gayaNormal = massa * g;
-    const gayaGesek = koefGesek * gayaNormal;
-
-    resultanGaya = gayaMesin - (gayaGesek + gayaUdara);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-// -----------------------------
-// LOOP ANIMASI
-// -----------------------------
+// Loop animasi (pengganti FuncAnimation)
 function animate() {
-    // Hukum II Newton
+    // a = F/m (IDENTIK)
     const percepatan = resultanGaya / massa;
 
-    // Update kecepatan & posisi
+    // Update gerak (IDENTIK)
     kecepatan += percepatan * dt;
     posisi += kecepatan * dt;
 
-    // Batas lintasan
-    posisi = Math.max(0, Math.min(posisi, batasLintasan));
+    // -----------------------------
+    // GRAFIK (SETARA MATPLOTLIB)
+    // -----------------------------
+    const xPixel = 20 + frame * 3;
+    const yPixel = canvas.height - 20;
 
-    // Meter → pixel
-    const px = posisi * 100;
-    mobil.style.transform = `translateX(${px}px)`;
+    ctx.fillStyle = "blue";
+    ctx.fillRect(xPixel, yPixel - posisi * 3, 4, 4);
 
-    // Status sistem
-    let status = "SETIMBANG";
-    if (Math.abs(resultanGaya) > 1) {
-        status = resultanGaya > 0 ? "MAJU" : "MUNDUR";
-    }
+    // -----------------------------
+    // JUNGKAT-JUNGKIT (INDIKATOR)
+    // -----------------------------
+    let angle = resultanGaya * 0.05;
+    angle = Math.max(Math.min(angle, 15), -15);
 
-    info.innerHTML = `
-        <b>Status:</b> ${status}<br>
-        <b>Resultan Gaya:</b> ${resultanGaya.toFixed(1)} N<br>
-        <b>Percepatan:</b> ${percepatan.toFixed(3)} m/s²<br>
-        <b>Kecepatan:</b> ${kecepatan.toFixed(2)} m/s<br>
-        <b>Posisi:</b> ${posisi.toFixed(2)} m
+    document.getElementById("papan").style.transform =
+        `rotate(${angle}deg)`;
+
+    document.getElementById("info").innerHTML = `
+        Resultan Gaya: ${resultanGaya.toFixed(1)} N<br>
+        Percepatan: ${percepatan.toFixed(3)} m/s²<br>
+        Kecepatan: ${kecepatan.toFixed(2)} m/s<br>
+        Posisi: ${posisi.toFixed(2)} m
     `;
 
+    frame++;
     requestAnimationFrame(animate);
 }
 
-// Inisialisasi awal
 resetSimulasi();
 animate();
