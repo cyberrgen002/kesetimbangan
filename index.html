@@ -2,29 +2,33 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Simulasi Jungkat Jungkit Kendaraan</title>
+    <title>Simulasi Kesetimbangan (Jungkat-Jungkit)</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Library -->
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<h2>Simulasi Keseimbangan Kendaraan (Jungkat-Jungkit)</h2>
+<h1>Simulasi Kesetimbangan Kendaraan (Jungkat-Jungkit)</h1>
 
-<div id="controls">
+<div class="panel">
     <label>Gaya Akselerasi</label>
     <input type="range" min="-1" max="1" step="0.01" value="0" id="force">
 
     <label>Posisi CoG (X)</label>
-    <input type="range" min="-30" max="30" step="1" value="0" id="cogx">
+    <input type="range" min="-40" max="40" step="1" value="0" id="cogX">
 
     <label>Posisi CoG (Y)</label>
-    <input type="range" min="-10" max="40" step="1" value="10" id="cogy">
+    <input type="range" min="-40" max="40" step="1" value="0" id="cogY">
 </div>
 
 <div id="canvas-container"></div>
 
-<canvas id="graph" width="600" height="200"></canvas>
+<div class="chart-box">
+    <canvas id="tiltChart"></canvas>
+</div>
 
 <script src="sketch.js"></script>
 </body>
